@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><DataSourceMetaData dataSourceName="src_tts_online" databaseName="datasourcename" ip="192.168.1.1" password="******" port="5432" userName="root"><dataBaseType>PostgreSQL</dataBaseType></DataSourceMetaData>

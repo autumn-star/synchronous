@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%-5p] -%m%n" />
+        </layout>
+
+    </appender>
+    <appender name="FILE" class="org.apache.log4j.FileAppender">
+        <param name="File" value="/export/bak/sync.log"/>
+        <param name="Threshold" value="ERROR" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%-5p] -%m%n" />
+        </layout>
+    </appender>
+    <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+        <param name="BufferSize" value="256" />
+        <appender-ref ref="DATABASE" />
+    </appender>
+
+    <root>
+        <priority value="info" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <!--appender-ref ref="RollingFile" /-->
+    </root>
+
+
+</log4j:configuration>
