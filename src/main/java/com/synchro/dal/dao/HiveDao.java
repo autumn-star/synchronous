@@ -46,7 +46,7 @@ public class HiveDao {
 		if (tableMetaData.getPartitionColumn() != null && !tableMetaData.getPartitionColumn().equals("")) {
 			sql.append("PARTITIONED BY (" + tableMetaData.getPartitionColumn() + " string)");
 		}
-		sql.append("LOCATION 'hdfs://qunarcluster/user/ticketdev/hive/warehouse/" + tableMetaData.getSchema() + ".db/" + tableMetaData.getTableName() + "'");
+		sql.append("LOCATION 'hdfs://*****cluster/user/ticketdev/hive/warehouse/" + tableMetaData.getSchema() + ".db/" + tableMetaData.getTableName() + "'");
 		logger.info(sql.toString());
 		hiveJdbcTemplate.execute(sql.toString());
 		return true;
