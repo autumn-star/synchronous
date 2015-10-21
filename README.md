@@ -1,5 +1,3 @@
 # synchronous
 synchronous
-
-当前作者 李秋 段星星
-未来作者 闫宇新
+数据同步系统，可用于同步 Postgresql Hadoop Mysql 文件等数据
