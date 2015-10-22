@@ -90,6 +90,8 @@ public class JdbcTemplateFactory {
 		bds.setMaxActive(SyncConstant.JDBC_CONNECTIONS_MAX_ACTIVE); // 最大链接数量
 		bds.setMinIdle(SyncConstant.JDBC_CONNECTIONS_MIN_IDLE); // 最小空闲链接
 		bds.setMaxIdle(SyncConstant.JDBC_CONNECTIONS_MAX_IDLE); // 最大空闲链接
+		bds.setDefaultAutoCommit(false);
+
 		String typeDatabase = dataSource.getDataBaseType().toString();
 		if (!typeDatabase.equals("HIVE")) {
 			// bds.setMinIdle(0); // 最小空闲链接

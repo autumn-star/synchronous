@@ -186,7 +186,7 @@ public class PostgresReader implements Callable<Boolean> {
      * @return
      */
     private SqlRowSet queryForPartitionMode(String sql) {
-
+        jdbcTemplate.setFetchSize(100);
         try {
             return jdbcTemplate.queryForRowSet(sql);
         } catch (Exception ex) {
