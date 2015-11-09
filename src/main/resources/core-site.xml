@@ -19,7 +19,7 @@
 	</property>
 	<property>
 		<name>fs.defaultFS</name>
-		<value>hdfs://*****cluster</value>
+		<value>hdfs://qunarcluster</value>
 	</property>
 
 	<property>

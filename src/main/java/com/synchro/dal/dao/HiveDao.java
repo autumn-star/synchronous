@@ -4,6 +4,7 @@ import com.synchro.dal.libs.JdbcTemplateFactory;
 import com.synchro.dal.metadata.ColumnMetaData;
 import com.synchro.dal.metadata.TableMetaData;
 
+import com.synchro.util.PropertiesUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,8 @@ public class HiveDao {
 		if (tableMetaData.getPartitionColumn() != null && !tableMetaData.getPartitionColumn().equals("")) {
 			sql.append("PARTITIONED BY (" + tableMetaData.getPartitionColumn() + " string)");
 		}
-		sql.append("LOCATION 'hdfs://*****cluster/user/ticketdev/hive/warehouse/" + tableMetaData.getSchema() + ".db/" + tableMetaData.getTableName() + "'");
+		String HIVE_LOCATION = PropertiesUtils.getProperties("hive_location");
+		sql.append("LOCATION '" + HIVE_LOCATION + tableMetaData.getSchema() + ".db/" + tableMetaData.getTableName() + "'");
 		logger.info(sql.toString());
 		hiveJdbcTemplate.execute(sql.toString());
 		return true;

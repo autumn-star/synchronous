@@ -106,7 +106,7 @@ public class ShellExecuter {
     public static void main(String[] args) {
         LinkedBlockingQueue<RowData> queue = new LinkedBlockingQueue<RowData>();
         try {
-            String host = "l-tdata2.tkt.cn6.*****.com";
+            String host = "l-tdata2.tkt.cn6.ShellExecuter.com";
             String user = "tkt_data_dev";
             String execCopy = "/Library/PostgreSQL/9.3/bin/psql -h " + host + " -U " + user + " log_analysis -c \"COPY (select * from mirror.b2c_product_ticket_date limit 3) TO STDOUT DELIMITER '	'\""; // 执行copy命令
             Runtime.getRuntime().exec(execCopy);
