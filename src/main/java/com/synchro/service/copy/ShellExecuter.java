@@ -45,16 +45,26 @@ public class ShellExecuter {
             if (pid != null) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(pid.getInputStream()), SyncConstant.SHELL_STREAM_BUFFER_SIZE);
                 try {
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
+                    String line = "";
+                    while (bufferedReader.readLine() != null) {
+                        if (line.equals("")) {
+                            line = bufferedReader.readLine();
+                        }else{
+                            line = line + bufferedReader.readLine();
+                        }
+                        if (line==null){
+                            continue;
+                        }
                         // LOGGER.info(String.format("shell info output [%s]", line));
                         String[] columnObjects = line.split(HiveDivideConstant.COPY_COLUMN_DIVIDE.toString(), -1);
+
                         if (columnObjects.length != columnMetaDatas.size()) {
-                            LOGGER.error(" 待同步的表有特殊字符，不能使用copy [{}] ", line);
+                            LOGGER.error(" 待同步的表有特殊字符，不能使用copy, 分隔数量：" + columnObjects.length + ";字段数量" + columnMetaDatas.size() + "; 内容: " + line);
                             throw new RuntimeException("待同步的表有特殊字符，不能使用copy " + line);
                         }
                         RowData rowData = new RowData(line.split(HiveDivideConstant.COPY_COLUMN_DIVIDE.toString(), -1));
                         queue.put(rowData);
+                        line = "";
                     }
                 } catch (Exception ioe) {
                     LOGGER.error(" execute shell error", ioe);

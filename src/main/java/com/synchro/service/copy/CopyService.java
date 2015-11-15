@@ -6,6 +6,7 @@ import com.synchro.service.DataSourceService;
 import com.synchro.dal.metadata.DataSourceMetaData;
 import com.synchro.dal.metadata.RowData;
 import com.synchro.dal.dto.SyncOptionsDto;
+import com.synchro.util.PropertiesUtils;
 import com.synchro.util.SpringContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ public class CopyService {
     private String querySql; //copy sql
     private List<ColumnMetaData> columnMetaDatas; //字段元信息
     private DataSourceService dataSourceService; // 数据元信息
+    private String dumpTool;
 
     public CopyService(LinkedBlockingQueue<RowData> queue, SyncOptionsDto syncOptions, String querySql,List<ColumnMetaData> columnMetaDatas) {
         this.queue = queue;
@@ -33,6 +35,7 @@ public class CopyService {
         this.querySql = querySql;
         this.dataSourceService = SpringContextUtils.getBean(DataSourceService.class);
         this.columnMetaDatas = columnMetaDatas;
+        this.dumpTool = PropertiesUtils.getProperties("postgre_dump");
     }
 
     /**
@@ -54,9 +57,7 @@ public class CopyService {
         String host = dataSource.getIp();
         String user = dataSource.getUserName();
         String dataBaseName = dataSource.getDatabaseName();
-        //String psqlPath = "/Library/PostgreSQL/9.3/bin/psql";
-        String psqlPath = "/opt/pg93/bin/psql";
-        String execCopy = psqlPath + " -h " + host + " -U " + user + " " + dataBaseName +" -c \"COPY (" + sql + ") TO STDOUT WITH DELIMITER E'"+ HiveDivideConstant.COPY_COLUMN_DIVIDE+"' CSV NULL AS E'NULL'\" "; // 执行copy命令
+        String execCopy = this.dumpTool + " -h " + host + " -U " + user + " " + dataBaseName +" -c \"COPY (" + sql + ") TO STDOUT WITH DELIMITER '"+ HiveDivideConstant.COPY_COLUMN_DIVIDE+"' \" "; // 执行copy命令
         LOGGER.info(execCopy);
         return execCopy;
     }

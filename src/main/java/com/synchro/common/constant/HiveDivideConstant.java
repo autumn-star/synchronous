@@ -17,5 +17,5 @@ public interface HiveDivideConstant {
 
 	final static String ENTER = "\n";
 
-	final static Character COPY_COLUMN_DIVIDE = '	';
+	final static Character COPY_COLUMN_DIVIDE = '';
 }

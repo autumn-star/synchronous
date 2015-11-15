@@ -35,7 +35,7 @@ public class ColumnAdapterService {
      */
     public static void setParameterValue(PreparedStatement preparedStmt, int index, Object value, int type) throws Exception {
         try {
-            if (value == null) {
+            if (value == null || value.toString().equals("\\N")) {
                 preparedStmt.setObject(index, null);
                 return;
             }

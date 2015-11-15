@@ -107,7 +107,7 @@ public class PostgresToPostgresWorker extends BaseWorker {
 
     private void dropTable() {
         StringBuilder deleteStr = new StringBuilder();
-        deleteStr.append(" drop table ").append(this.getOptions().getTgtSchemaName()).append(this.getOptions().getTgtTableName());
+        deleteStr.append(" drop table ").append(this.getOptions().getTgtSchemaName()).append(".").append(this.getOptions().getTgtTableName());
         this.tgtJdbcTemplate.execute(deleteStr.toString());
     }
 
@@ -193,15 +193,16 @@ public class PostgresToPostgresWorker extends BaseWorker {
     public static void main(String[] args) {
 
         SyncOptionsDto syncOptions = new SyncOptionsDto();
-        syncOptions.setSrcDataSourceName("src_product_online");
-        syncOptions.setSrcSchemaName("public");
-        syncOptions.setSrcTableName("b2c_supplier_info");
+        syncOptions.setSrcDataSourceName("log_analysis");
+        syncOptions.setSrcSchemaName("mirror");
+        syncOptions.setSrcTableName("sp_product");
         syncOptions.setTgtDataSourceName("log_analysis");
         syncOptions.setTgtSchemaName("realtime_data");
-        syncOptions.setTgtTableName("b2c_supplier_info");
+        syncOptions.setTgtTableName("sp_product");
         syncOptions.setSplitByColumn("id");
+        syncOptions.setDirect(true);
 
-        BaseWorker baseWorker = new PostgresToPostgresWorker();
+        PostgresToPostgresWorker baseWorker = new PostgresToPostgresWorker();
         baseWorker.setOptions(syncOptions);
         baseWorker.run();
     }
