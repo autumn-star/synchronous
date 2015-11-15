@@ -24,7 +24,8 @@ public class Synchr {
 	@Test
 	@Ignore
 	public void synchro() {
-		String commond = "pg-to-pg -ss log_analysis -sc mirror -st b2c_product_ticket_date -ts log_analysis_data3 -tc mirror -tt b2c_product_ticket_date";
+		//String commond = "pg-to-pg -ss log_analysis -sc mirror -st b2c_product_ticket_date -ts log_analysis_data3 -tc mirror -tt b2c_product_ticket_date -direct true";
+		String commond = "pg-to-pg -ss log_analysis -sc mirror -st b2c_product_ticket_date -ts log_analysis_data3 -tc mirror -tt b2c_product_ticket_date -direct true";
 		String[] args = commond.split(" ");
 		String toolName = args[0];
 		LOGGER.info("get SyncTool:" + toolName);
@@ -39,9 +40,4 @@ public class Synchr {
 		System.exit(ret);
 	}
 
-	@Test
-	public void test(){
-		int i=0;
-		System.out.println(i / 0);
-	}
 }
