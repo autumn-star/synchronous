@@ -47,6 +47,19 @@ public class SyncOptionsDto {
 
     private int queueSize;
 
+    /**
+     * 字段分隔符
+     */
+    private String columnDivide;
+
+
+    public String getColumnDivide() {
+        return columnDivide;
+    }
+
+    public void setColumnDivide(String columnDivide) {
+        this.columnDivide = columnDivide;
+    }
 
     public String getColumns() {
         return columns;

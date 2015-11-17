@@ -1,6 +1,7 @@
 package com.synchro.tool;
 
 import com.google.common.collect.Maps;
+import com.synchro.common.constant.HiveDivideConstant;
 import com.synchro.common.constant.SyncroModeEnum;
 import com.synchro.dal.dto.SyncOptionsDto;
 import com.synchro.option.RelatedOptions;
@@ -62,6 +63,11 @@ public abstract class SyncTool {
 	 * help
 	 */
 	public static final String HELP_ARG = "help";
+
+	/**
+	 * 字段分隔符
+	 */
+	public static final String COLUMN_DIVIDE = "column-divide";
 
 	/**
 	 * The name of the current tool.
@@ -142,6 +148,7 @@ public abstract class SyncTool {
 		opts.addOption(OptionBuilder.withArgName(SPLIT_COLUMN_ARG).hasArg().withDescription("split column").withLongOpt(SPLIT_COLUMN_ARG).create());
 		opts.addOption(OptionBuilder.withArgName(EXCLUDE_COLUMNS_ARG).hasArg().withDescription("exclude column").withLongOpt(EXCLUDE_COLUMNS_ARG).create());
 		opts.addOption(OptionBuilder.withArgName(DIRECT_ARG).hasArg().withDescription("direct").withLongOpt(DIRECT_ARG).create());
+		opts.addOption(OptionBuilder.withArgName(COLUMN_DIVIDE).hasArg().withDescription("column-divide").withLongOpt(COLUMN_DIVIDE).create());
 		return opts;
 	}
 
@@ -263,7 +270,18 @@ public abstract class SyncTool {
 
 			}
 
-		}		
+		}
+
+		/**
+		 * 字段分隔符
+		 */
+		if (in.hasOption(COLUMN_DIVIDE)) {
+			out.setColumnDivide(in.getOptionValue(COLUMN_DIVIDE));
+			LOGGER.info("input column-divide is :'" + in.getOptionValue(COLUMN_DIVIDE)+"'");
+		}else{
+			out.setColumnDivide(HiveDivideConstant.COLUMN_DIVIDE);
+			LOGGER.info("use default column-divide is :'" + in.getOptionValue(COLUMN_DIVIDE) +"'");
+		}
 		
 	}
 

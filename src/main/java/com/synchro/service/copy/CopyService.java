@@ -57,7 +57,8 @@ public class CopyService {
         String host = dataSource.getIp();
         String user = dataSource.getUserName();
         String dataBaseName = dataSource.getDatabaseName();
-        String execCopy = this.dumpTool + " -h " + host + " -U " + user + " " + dataBaseName +" -c \"COPY (" + sql + ") TO STDOUT WITH DELIMITER '"+ HiveDivideConstant.COPY_COLUMN_DIVIDE+"' \" "; // 执行copy命令
+        Character columnDivide = this.syncOptions.getColumnDivide()==null?HiveDivideConstant.COPY_COLUMN_DIVIDE:this.syncOptions.getColumnDivide().charAt(0);
+        String execCopy = this.dumpTool + " -h " + host + " -U " + user + " " + dataBaseName +" -c \"COPY (" + sql + ") TO STDOUT WITH DELIMITER '"+ columnDivide+"' \" "; // 执行copy命令
         LOGGER.info(execCopy);
         return execCopy;
     }
