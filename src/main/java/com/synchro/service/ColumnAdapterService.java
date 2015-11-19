@@ -280,7 +280,7 @@ public class ColumnAdapterService {
      */
     public static String getHstore(String str) {
         //logger.info(str);
-        str = str.substring(1, str.length() - 1).trim().replace('\\', ' ').replace(" ", "");
+        str = str.substring(1, str.length() - 1).trim().replace('\\', ' ').replace(" ", "").replace("\"","");
         String[] tmp = str.split(ColumnAdapterService.DIVIDE);
         StringBuffer sbf = new StringBuffer();
         for (int i = 0; i < tmp.length; i++) {
