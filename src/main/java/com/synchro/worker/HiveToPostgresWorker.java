@@ -150,6 +150,7 @@ public class HiveToPostgresWorker extends BaseWorker {
         if (options.getWhere() != null && !options.getWhere().equals("")) {
             delSql = delSql + (" where " + options.getWhere());
         }
+        LOGGER.info("删除语句：" + delSql);
         tgtJdbcTemplate.execute(delSql.toString());
     }
 
