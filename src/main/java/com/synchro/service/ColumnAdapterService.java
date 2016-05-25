@@ -132,7 +132,7 @@ public class ColumnAdapterService {
                     preparedStmt.setString(index, ((String) value));
                     break;
                 case Types.OTHER:
-                    if (value != null) {
+                    if (value != null&&value.toString().length()>1) {
                         if (value.toString().substring(0, 1).equals("{")) {
                             // hstore类型数据特殊处理
                             value = getHstore(value.toString());
