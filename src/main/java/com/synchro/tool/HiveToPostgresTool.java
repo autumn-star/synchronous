@@ -9,14 +9,11 @@ import com.synchro.worker.HiveToPostgresWorker;
  * postgres
  */
 public class HiveToPostgresTool extends SyncTool {
-
 	@Override
 	public int run(SyncOptionsDto var1) throws Exception {
-
-		//BaseWorker baseWorker = SpringContextUtils.getBean(HiveToPostgresWorker.class);
 		BaseWorker baseWorker = new HiveToPostgresWorker();
 		baseWorker.setOptions(var1);
 		baseWorker.run();
-		return 1;
+		return 0;
 	}
 }

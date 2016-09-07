@@ -13,7 +13,7 @@ public class RealtimePostgresToPostgresTool extends SyncTool {
         BaseWorker baseWorker = new RealtimePostgresToPostgresWorker();
         baseWorker.setOptions(options);
         baseWorker.run();
-        return 1;
+        return 0;
     }
 
     public static void main(String[] args){

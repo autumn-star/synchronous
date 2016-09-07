@@ -12,11 +12,10 @@ public class PostgresToPostgresTool extends SyncTool {
 
     @Override
     public int run(SyncOptionsDto var1) throws Exception {
-        //BaseWorker baseWorker = SpringContextUtils.getBean(PostgresToPostgresWorker.class);
         BaseWorker baseWorker = new PostgresToPostgresWorker();
         baseWorker.setOptions(var1);
         baseWorker.run();
-        return 1;
+        return 0;
     }
 
     public static void main(String[] args){

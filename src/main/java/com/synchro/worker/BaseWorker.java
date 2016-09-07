@@ -73,7 +73,6 @@ public abstract class BaseWorker {
 	protected abstract void execute();
 
 	public void run() {
-
 		init(); // 初始化
 		execute(); // 执行
 		clear(); // 清理

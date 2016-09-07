@@ -305,7 +305,6 @@ public abstract class SyncTool {
 	}
 
 	public void printHelp(ToolOptions opts) {
-
 		System.out.println("usage: sync " + getToolName() + " [GENERIC-ARGS] [TOOL-ARGS]");
 		System.out.println("");
 
@@ -325,12 +324,12 @@ public abstract class SyncTool {
 		try {
 			SyncOptionsDto options = new SyncOptionsDto();
 			options = tool.parseArguments(args, options); // 解析参数
-			LOGGER.info("options is : " + options);
+			LOGGER.info("Data sync options is : " + options);
 			return tool.run(options);
 		} catch (Exception e) {
-			LOGGER.error("tool run faild ", e);
-		}
-		return 1;
+			LOGGER.error("Failed to sync data: ", e);
+            return 1;
+        }
 	}
 	
 	public abstract int run(SyncOptionsDto options) throws Exception;
