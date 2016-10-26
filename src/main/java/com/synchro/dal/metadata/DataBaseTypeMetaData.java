@@ -13,8 +13,8 @@ public enum DataBaseTypeMetaData {
     Oracle1("Oracle", "oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@%s:%d:%s"),
     PostgreSQL("PostgreSQL", "org.postgresql.Driver", "jdbc:postgresql://%s:%d/%s?useUnicode=true&amp;characterEncoding=utf8"),
     MySQL("MySQL", "com.mysql.jdbc.Driver", "jdbc:mysql://%s:%d/%s?useUnicode=true&characterEncoding=utf8"),
-    HIVE("HIVE", "org.apache.hive.jdbc.HiveDriver", "jdbc:hive2://%s:%d/");
-
+    // HIVE("HIVE", "org.apache.hive.jdbc.HiveDriver", "jdbc:hive2://%s:%d/");
+    HIVE("HIVE", "org.apache.hadoop.hive.jdbc.HiveDriver", "jdbc:hive://%s:%d/");
 
     private String databaseName;
 
