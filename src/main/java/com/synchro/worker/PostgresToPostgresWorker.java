@@ -65,9 +65,12 @@ public class PostgresToPostgresWorker extends BaseWorker {
         }
 
         if (tgtTableMetaData == null || !srcTableMetaData.equals(tgtTableMetaData)) {
+            throw new RuntimeException("src table is not equals src table");
+            /*
             this.compareAndCreateTableMetaData();
             //表创建后再次获取目标表元数据
             this.tgtTableMetaData = tableMetaDataService.getTableMetaData(tableMetaDataCondition, DatabaseType.POSTGRES);
+            */
         }
 
     }
