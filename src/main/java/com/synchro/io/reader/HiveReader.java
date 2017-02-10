@@ -6,7 +6,6 @@ import com.synchro.common.constant.SyncConstant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -79,13 +78,7 @@ public class HiveReader implements Callable<Boolean> {
 					return rs;
 				}
 			});
-			logger.info(String.format("Time cost of getDataAndPutToQueue: %s seconds", (System.currentTimeMillis() - beginTime) / 1000.0));
-		} catch (EmptyResultDataAccessException emptyResultException) {
-			if (queue.size() > 1) {
-				logger.info("Read hive data finished: data size " + queue.size());
-			} else {
-				throw emptyResultException;
-			}
+			logger.info(String.format("getDataAndPutToQueue used %s second times", (System.currentTimeMillis() - beginTime) / 1000.00));
 		} catch (Exception e) {
 			logger.error(e.toString());
 			throw e;
