@@ -40,8 +40,7 @@ public class RowData {
 	public String toString() {
 		StringBuffer strBuff = new StringBuffer();
 		for (Object obj : this.columnObjects) {
-			strBuff.append(obj);
-			strBuff.append(RowData.divide);
+			strBuff.append(obj.toString() + RowData.divide);
 		}
 		return strBuff.toString();
 	}

@@ -6,10 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HiveUtils {
+	private static Pattern p = Pattern.compile(HiveDivideConstant.HIVE_DIVIDE);
+
 	public static String replaceBlank(String str) {
 		String dest = "";
 		if (str != null) {
-			Pattern p = Pattern.compile(HiveDivideConstant.HIVE_DIVIDE);
 			Matcher m = p.matcher(str);
 			dest = m.replaceAll("");
 		}
