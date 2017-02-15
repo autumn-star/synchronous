@@ -100,7 +100,6 @@ public class PostgresReader implements Callable<Boolean> {
                         putData(sqlRowSet);
                     }
                 } else {
-
                     SqlRowSet sqlRowSet = queryForPartitionMode(selectQuery);
                     putData(sqlRowSet);
                 }
