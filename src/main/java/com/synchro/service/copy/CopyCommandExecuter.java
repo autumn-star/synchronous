@@ -1,5 +1,6 @@
 package com.synchro.service.copy;
 
+import com.lowagie.text.Row;
 import com.synchro.common.constant.HiveDivideConstant;
 import com.synchro.dal.metadata.ColumnMetaData;
 import com.synchro.dal.metadata.RowData;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -21,6 +23,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class CopyCommandExecuter {
     private static final int SLEEP_TIME = 100;
     private static final Logger LOGGER = LoggerFactory.getLogger(CopyCommandExecuter.class);
+    private static String SPLIT_PATTERN_PREFIX = "(?<!\\\\)";
+    private static String ESCAPE_COLUMN_DIVIDE = "\\\\" + HiveDivideConstant.COPY_COLUMN_DIVIDE;
 
     /**
      * 执行shell命令
@@ -44,19 +48,9 @@ public class CopyCommandExecuter {
                     Thread.sleep(SLEEP_TIME);
                     continue;
                 }
-                // skip empty lines
-                if (line == "") {
-                    continue;
-                }
-                String[] columnObjects = line.split(HiveDivideConstant.COPY_COLUMN_DIVIDE.toString(), -1);
+                assert(line.length() > 0);
 
-                LOGGER.info("length of columnObjects is: " + columnObjects.length);
-                if (columnObjects.length != columnMetaDatas.size()) {
-                    LOGGER.error(" 待同步的表有特殊字符，不能使用copy, 分隔数量：" + columnObjects.length + ";字段数量" + columnMetaDatas.size() + "; 内容: " + line);
-                    throw new RuntimeException("待同步的表有特殊字符，不能使用copy " + line);
-                }
-                RowData rowData = new RowData(columnObjects);
-                queue.put(rowData);
+                queue.put(parseLine(line, columnMetaDatas.size()));
             }
             int exitStatus = pid.waitFor();
             LOGGER.info("Exit status of command is :" + exitStatus);
@@ -75,10 +69,34 @@ public class CopyCommandExecuter {
     private static Process startProcess(String[] cmd) throws Exception{
         try {
             // start another process to run command
+            LOGGER.info("Running command " + cmd[cmd.length - 1]);
             return Runtime.getRuntime().exec(cmd);
         } catch (Exception e) {
             LOGGER.error("Failed to start process to run shell command: ", e);
             throw e;
         }
+    }
+
+
+    private static RowData parseLine(String line, int columnCount) {
+        // To improve performance, we try to split line data using the column delimiter first. If it fails, there may
+        // be special characters in column fields, then we use SPLIT_PATTERN_PREFIX to split line data
+        String[] columnObjects = line.split(HiveDivideConstant.COPY_COLUMN_DIVIDE, -1);
+
+        if (columnObjects.length != columnCount) {
+            columnObjects = line.split(SPLIT_PATTERN_PREFIX + HiveDivideConstant.COPY_COLUMN_DIVIDE);
+            if (columnObjects.length != columnCount) {
+                String errMsg = "Failed to parse line: " + line;
+                LOGGER.error(errMsg);
+                throw new RuntimeException(errMsg);
+            }
+            List<String> result = new ArrayList<>();
+            for (String s: columnObjects) {
+                // Replace the escaped column divide
+                result.add(s.replace(ESCAPE_COLUMN_DIVIDE, HiveDivideConstant.COPY_COLUMN_DIVIDE));
+            }
+            result.toArray(columnObjects);
+        }
+        return new RowData(columnObjects);
     }
 }

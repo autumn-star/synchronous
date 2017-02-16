@@ -37,4 +37,21 @@ public class CopyCommandExecuterTest {
         CopyCommandExecuter.execute(cmd, queue, columnMetaDatas);
         Assert.assertTrue(queue.size() == 1);
     }
+
+    @Test
+    public void testStringSplit() {
+        String pattern = "(?<!\\\\),";
+        String original = "hello\\,world,nihao";
+        String[] ss = original.split(pattern);
+
+        List<String> b = new ArrayList<>();
+        for (String a: ss) {
+            System.out.println(a);
+            b.add(a.replaceAll("\\\\,", ","));
+        }
+
+        b.toArray(ss);
+        Assert.assertTrue(ss[0].equals("hello,world"));
+        Assert.assertTrue(ss[1].equals("nihao"));
+    }
 }
