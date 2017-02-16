@@ -41,10 +41,10 @@ public class CopyService {
     /**
      * 将数据放入缓存队列
      */
-    public void putCopyData() {
+    public void putCopyData() throws Exception {
         DataSourceMetaData dataSource = dataSourceService.getDataSource(syncOptions.getSrcDataSourceName());
         String copyCommand = this.getCopyCommand(dataSource, querySql); //获取copy命令
-        ShellExecuter.execute(copyCommand, queue,columnMetaDatas);
+        CopyCommandExecuter.execute(copyCommand, queue,columnMetaDatas);
     }
 
     /**
@@ -57,7 +57,7 @@ public class CopyService {
         String host = dataSource.getIp();
         String user = dataSource.getUserName();
         String dataBaseName = dataSource.getDatabaseName();
-        Character columnDivide = this.syncOptions.getColumnDivide()==null?HiveDivideConstant.COPY_COLUMN_DIVIDE:this.syncOptions.getColumnDivide().charAt(0);
+        Character columnDivide = this.syncOptions.getColumnDivide()==null?HiveDivideConstant.COPY_COLUMN_DIVIDE.charAt(0):this.syncOptions.getColumnDivide().charAt(0);
         String execCopy = this.dumpTool + " -h " + host + " -U " + user + " " + dataBaseName +" -c \"COPY (" + sql + ") TO STDOUT WITH DELIMITER '"+ columnDivide+"' \" "; // 执行copy命令
         LOGGER.info(execCopy);
         return execCopy;

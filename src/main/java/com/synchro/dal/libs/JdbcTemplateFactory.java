@@ -90,17 +90,13 @@ public class JdbcTemplateFactory {
 		bds.setMaxActive(SyncConstant.JDBC_CONNECTIONS_MAX_ACTIVE); // 最大链接数量
 		bds.setMinIdle(SyncConstant.JDBC_CONNECTIONS_MIN_IDLE); // 最小空闲链接
 		bds.setMaxIdle(SyncConstant.JDBC_CONNECTIONS_MAX_IDLE); // 最大空闲链接
-		//bds.setDefaultAutoCommit(false);
 
 		String typeDatabase = dataSource.getDataBaseType().toString();
 		if (!typeDatabase.equals("HIVE")) {
-			// bds.setMinIdle(0); // 最小空闲链接
+			bds.setDefaultAutoCommit(false);
 			bds.setValidationQuery("select 1");
 		}
-		// else {
-		// bds.setMaxWait(60 * 5); // 最大超时时间，以秒为单位
-		// bds.setRemoveAbandonedTimeout(1000 * 60);// 超时时间，以毫秒为单位
-		// }
+
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(bds);
 		return jdbcTemplate;
 	}
