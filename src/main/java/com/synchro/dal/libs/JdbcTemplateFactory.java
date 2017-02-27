@@ -93,7 +93,7 @@ public class JdbcTemplateFactory {
 
 		String typeDatabase = dataSource.getDataBaseType().toString();
 		if (!typeDatabase.equals("HIVE")) {
-			bds.setDefaultAutoCommit(false);
+			//bds.setDefaultAutoCommit(false);
 			bds.setValidationQuery("select 1");
 		}
 
