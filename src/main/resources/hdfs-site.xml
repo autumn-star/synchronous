@@ -29,22 +29,22 @@
 
 	<property>
 		<name>dfs.namenode.rpc-address.qunarcluster.nn1</name>
-		<value>l-hdpm1.data.cn5:8020</value>
+		<value>hdpm1.corp.qunar.com:8020</value>
 	</property>
 
 	<property>
 		<name>dfs.namenode.rpc-address.qunarcluster.nn2</name>
-		<value>l-hdpm3.data.cn5:8020</value>
+		<value>hdpm3.corp.qunar.com:8020</value>
 	</property>
 	
 	<property>
 		<name>dfs.namenode.http-address.qunarcluster.nn1</name>
-		<value>l-hdpm1.data.cn5:50070</value>
+		<value>hdpm1.corp.qunar.com:50070</value>
 	</property>
 
 	<property>
 		<name>dfs.namenode.http-address.qunarcluster.nn2</name>
-		<value>l-hdpm3.data.cn5:50070</value>
+		<value>hdpm3.corp.qunar.com:50070</value>
 	</property>
 
 	<property>
