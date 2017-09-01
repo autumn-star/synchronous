@@ -66,7 +66,6 @@ public class HiveReader implements Callable<Boolean> {
 		this.isRunning.set(true);
 		cyclicBarrier.await();
 		try {
-			jdbcTemplate.execute("set hive.cli.print.row.to.vertical=true;");
 			jdbcTemplate.queryForObject(sql, new RowMapper<ResultSet>() {
 				@Override
 				public ResultSet mapRow(ResultSet rs, int rowNum) throws SQLException {
