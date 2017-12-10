@@ -33,7 +33,7 @@ public class CopyService {
         this.queue = queue;
         this.syncOptions = syncOptions;
         this.querySql = querySql;
-        this.dataSourceService = SpringContextUtils.getBean(DataSourceService.class);
+        this.dataSourceService = SpringContextUtils.getBean(DataSourceService.class) ;
         this.columnMetaDatas = columnMetaDatas;
         this.dumpTool = PropertiesUtils.getProperties("postgre_dump");
     }

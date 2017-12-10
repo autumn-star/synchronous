@@ -17,6 +17,7 @@ import java.sql.Types;
  * 类型对应关系类
  *
  * @author qiu.li
+ *
  */
 public class ColumnAdapterService {
     private final static Logger logger = LoggerFactory.getLogger(ColumnAdapterService.class);

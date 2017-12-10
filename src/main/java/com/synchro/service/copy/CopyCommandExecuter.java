@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 执行shell类
- * CreateTime 2015-08-09
+ * CreateTime 2017-08-09
  * Refactored by Qinghe on 2017-02-13
  * @author liqiu
  */

@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * a reader for postgres database
  *
  * @author xingxing
- * @CreateTime 2015-08-21
+ * @CreateTime 2017-08-21
  */
 public class PostgresReader implements Callable<Boolean> {
 

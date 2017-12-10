@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 消费者，将队列内的数据保存到Database
+ * 
  *
  * @author qiu.li
  */

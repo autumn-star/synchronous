@@ -5,8 +5,8 @@ import com.synchro.worker.BaseWorker;
 import com.synchro.worker.PostgresToPostgresWorker;
 
 /**
- * Created by xingxing.duan & liqiu on 2015/8/21.
- * Last modified by liqiu 2015-09-05
+ * Created by xingxing.duan & liqiu on 2017/8/21.
+ * Last modified by liqiu 2017-09-05
  */
 public class PostgresToPostgresTool extends SyncTool {
 
