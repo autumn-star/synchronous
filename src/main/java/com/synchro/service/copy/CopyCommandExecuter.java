@@ -42,7 +42,7 @@ public class CopyCommandExecuter {
 
         String line;
         try {
-            while ((line = bufferedReader.readLine()) != null || pid.isAlive()) {
+            while ((line = bufferedReader.readLine()) != null) {
                 // if process is alive but no output, sleep 100ms to save cpu
                 if (line == null) {
                     Thread.sleep(SLEEP_TIME);
